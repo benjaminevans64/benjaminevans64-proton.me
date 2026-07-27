@@ -1,25 +1,101 @@
 :root {
-    --clr-bg: #F8FAFC;
-    --clr-surface: #FFFFFF;
-    --clr-surface-hover: #F1F5F9;
-    --clr-border: #E2E8F0;
-    --clr-gold: #0F766E;
-    --clr-gold-bright: #14B8A6;
-    --clr-accent: #0D9488;
-    --clr-text: #0F172A;
-    --clr-muted: #64748B;
-    --clr-dim: #94A3B8;
-    --clr-green: #16A34A;
-    --clr-red: #DC2626;
-    --ff-heading: 'Merriweather', system-ui, sans-serif;
-    --ff-body: 'Lato', system-ui, sans-serif;
-    --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-black: 800;
-    --fs-xs: 0.6875rem; --fs-sm: 0.8125rem; --fs-base: 0.9375rem;
-    --fs-lg: 1.0625rem; --fs-xl: 1.25rem; --fs-2xl: 1.5rem;
-    --fs-3xl: 2rem; --fs-4xl: 2.5rem; --fs-5xl: 3.25rem;
-    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;--sp-16:64px;--sp-20:80px;
-    --max-w: 1180px; --max-w-narrow: 720px; --gutter: 20px;
-    --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-2xl:24px;--r-full:9999px;
-    --shadow-card: 0 1px 3px rgba(0,0,0,0.1), 0 0 0 1px var(--clr-border);
-    --ease: cubic-bezier(0.4,0,0.2,1); --dur: 200ms;
+    /* ===== Surfaces (warm night navy) ===== */
+    --clr-bg: #0B111B;
+    --clr-surface: #16202E;
+    --clr-surface-2: #1F2B3E;
+    --clr-surface-hover: #24314A;
+    --clr-border: rgba(166,176,192,0.16);
+    --clr-border-strong: rgba(212,168,67,0.38);
+
+    /* ===== Ink ===== */
+    --clr-heading: #F7F3E5;
+    --clr-text: #E8EBF0;
+    --clr-muted: #A6B0C0;
+    --clr-dim: #8A94A6;
+
+    /* ===== Accent — gold only ===== */
+    --clr-gold: #D4A843;
+    --clr-accent: #D4A843;
+    --clr-primary: #D4A843;
+    --clr-gold-bright: #E9C678;
+    --clr-gold-deep: #8C6B1C;
+    --clr-on-gold: #16110A;
+    --clr-primary-tint: rgba(212,168,67,0.10);
+    --clr-primary-ink: #E9C678;
+    --clr-grad-gold: linear-gradient(135deg,#F6D98A 0%,#D4A843 45%,#8C6B1C 100%);
+    --clr-grad-night: linear-gradient(170deg,#0E1520 0%,#1F2B3E 100%);
+
+    /* ===== Semantic ===== */
+    --clr-green: #4ADE80;
+    --clr-red: #F87171;
+    --clr-warn: #F5B942;
+    --clr-star-full: #E9C678;
+    --clr-star-empty: rgba(166,176,192,0.26);
+
+    /* ===== Type families / weights ===== */
+    --ff-heading: 'Merriweather', Georgia, serif;
+    --ff-body: 'Lato', system-ui, -apple-system, sans-serif;
+    --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-black: 900;
+
+    /* ===== Type scale ===== */
+    --fs-xs: 0.75rem;      /* 12px  legal, chip */
+    --fs-sm: 0.875rem;     /* 14px  meta, table cell */
+    --fs-base: 1.0625rem;  /* 17px  BODY COPY */
+    --fs-lg: 1.1875rem;    /* 19px  lead paragraph */
+    --fs-xl: 1.375rem;     /* 22px  h4 / card title */
+    --fs-2xl: 1.625rem;    /* 26px  h3 */
+    --fs-3xl: clamp(1.75rem, 1.2rem + 1.8vw, 2.125rem);  /* 28->34 h2 */
+    --fs-4xl: clamp(2.125rem, 1.4rem + 2.6vw, 2.75rem);  /* 34->44 page h1 */
+    --fs-5xl: clamp(2.5rem, 1.3rem + 4.2vw, 3.75rem);    /* 40->60 hero h1 */
+
+    --lh-body: 1.7; --lh-lead: 1.6; --lh-heading: 1.22; --lh-display: 1.08;
+    --ls-heading: -0.015em; --ls-display: -0.022em;
+
+    /* ===== Measure ===== */
+    /* 44rem minus the 20px gutters lands long-form prose at ~68ch */
+    --max-w: 1180px; --max-w-narrow: 44rem; --gutter: 20px;
+
+    /* ===== Space ===== */
+    --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;--sp-16:64px;--sp-20:80px;--sp-24:96px;
+    --pad-sec: clamp(56px, 7vw, 96px);
+    --pad-hero: clamp(72px, 9vw, 132px);
+
+    /* ===== Radius ===== */
+    --r-sm:6px;--r-md:10px;--r-lg:14px;--r-xl:20px;--r-2xl:28px;--r-full:9999px;
+
+    /* ===== Shadow ===== */
+    --shadow-card: 0 1px 2px rgba(0,0,0,.55), 0 10px 28px -14px rgba(0,0,0,.7);
+    --shadow-lift: 0 4px 10px rgba(0,0,0,.5), 0 24px 56px -22px rgba(0,0,0,.78);
+
+    /* ===== Motion ===== */
+    --dur: 200ms; --dur-slow: 420ms; --ease: cubic-bezier(.2,.7,.2,1);
+
+    /* ===== --r26-* aliases =====
+       refresh-2026.css no longer declares its own :root — every name it used
+       to define is mapped here onto the tokens above so its selectors keep
+       resolving without change. */
+    --r26-paper: var(--clr-bg);
+    --r26-ink: #0E1520;
+    --r26-ink-2: var(--clr-surface);
+    --r26-ink-3: var(--clr-surface-2);
+    --r26-surface: var(--clr-surface);
+    --r26-surface-2: var(--clr-surface-2);
+    --r26-primary: var(--clr-gold);
+    --r26-primary-soft: var(--clr-gold-bright);
+    --r26-accent: var(--clr-gold);
+    --r26-text: var(--clr-text);
+    --r26-text-mid: var(--clr-muted);
+    --r26-text-dim: var(--clr-dim);
+    --r26-line: var(--clr-border);
+    --r26-border: var(--clr-border);
+    --r26-border-strong: var(--clr-border-strong);
+    --r26-grad-gold: var(--clr-grad-gold);
+    --r26-grad-night: var(--clr-grad-night);
+    --r26-font-h: var(--ff-heading);
+    --r26-font-b: var(--ff-body);
+    --r26-hero: url("/wp-content/themes/prg-theme/assets/images/refresh-hero-bg.webp");
+    --r26-cta: url("/wp-content/themes/prg-theme/assets/images/refresh-cta-bg.webp");
+    /* refresh-chapter-visual.webp (1.76MB) is dead weight referenced by nothing —
+       do not point --r26-about at it. Var stays defined so nothing errors. */
+    --r26-about: none;
 }

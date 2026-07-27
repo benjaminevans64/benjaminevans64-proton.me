@@ -90,75 +90,46 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <meta name="generator" content="WordPress 6.9.4" />
 <link rel='shortlink' href='https://psychic-ratings-guide.net/?p=7950' />
     <style>
-
     .review-form-wrap{margin-top:var(--sp-8);padding:var(--sp-6);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--r-lg)}
-
     .review-form-wrap h3{font-size:var(--fs-xl);margin-bottom:var(--sp-4)}
-
     .review-form-rating{margin-bottom:var(--sp-3)}
-
     .review-form-rating label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--clr-text);margin-bottom:var(--sp-1)}
-
     .review-criteria-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0 var(--sp-6);margin-bottom:var(--sp-2);padding:var(--sp-3) var(--sp-4);background:rgba(255,255,255,0.02);border:1px solid var(--clr-border);border-radius:var(--r-md)}
-
     .review-criteria-grid .review-form-rating{margin-bottom:var(--sp-2)}
-
     .review-criteria-grid .review-form-rating label{font-size:var(--fs-xs);color:var(--clr-muted)}
-
     .review-criteria-grid .star-btn svg{width:18px;height:18px}
-
     .star-select{display:inline-flex;gap:2px}
-
-    .star-btn{background:none;border:none;cursor:pointer;padding:2px;color:var(--clr-border);transition:color .15s}
-
+    .star-btn{background:none;border:none;cursor:pointer;padding:2px;color:var(--clr-star-empty);transition:color .15s;min-width:24px;min-height:24px}
     .star-btn svg{width:24px;height:24px}
-
-    .star-btn.active{color:var(--clr-accent)}
-
-    .star-btn:hover{color:var(--clr-accent)}
-
+    .star-btn.active{color:var(--clr-star-full)}
+    .star-btn:hover{color:var(--clr-star-full)}
+    .star-btn:focus-visible{outline:2px solid var(--clr-gold);outline-offset:2px;border-radius:var(--r-sm)}
     .review-form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
-
     .review-form-field{margin-bottom:var(--sp-4)}
-
     .review-form-field label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semibold);color:var(--clr-text);margin-bottom:var(--sp-1)}
-
-    .review-form-field input,.review-form-field textarea{width:100%;padding:10px 14px;background:var(--clr-bg);border:1px solid var(--clr-border);border-radius:var(--r-md);color:var(--clr-text);font-family:var(--ff-body);font-size:var(--fs-sm);transition:border-color .2s}
-
+    .review-form-field input,.review-form-field textarea{width:100%;padding:10px 14px;background:var(--clr-bg);border:1px solid var(--clr-border);border-radius:var(--r-md);color:var(--clr-text);font-family:var(--ff-body);font-size:var(--fs-sm);transition:border-color .2s,box-shadow .2s}
+    .review-form-field input::placeholder,.review-form-field textarea::placeholder{color:var(--clr-muted);opacity:1}
     .review-form-field input:focus,.review-form-field textarea:focus{outline:none;border-color:var(--clr-accent)}
-
+    .review-form-field input:focus-visible,.review-form-field textarea:focus-visible{outline:2px solid var(--clr-gold);outline-offset:2px}
     .review-form-field textarea{resize:vertical;min-height:100px}
-
     .review-empty{color:var(--clr-dim);font-size:var(--fs-sm);font-style:italic}
-
     #respond .form-submit{margin-top:var(--sp-2)}
-
+    #respond #cancel-comment-reply-link{color:var(--clr-gold)}
+    #respond #cancel-comment-reply-link:hover{color:var(--clr-gold-bright)}
+    #respond #cancel-comment-reply-link:focus-visible{outline:2px solid var(--clr-gold);outline-offset:2px}
     /* Criteria summary bar */
-
     .criteria-summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--sp-3);padding:var(--sp-4);background:var(--clr-surface);border:1px solid var(--clr-border);border-radius:var(--r-lg);margin-bottom:var(--sp-5)}
-
     .criteria-summary__item{display:flex;align-items:center;gap:var(--sp-2)}
-
     .criteria-summary__label{font-size:var(--fs-xs);color:var(--clr-muted);min-width:90px}
-
     .criteria-summary__score{font-size:var(--fs-xs);font-weight:var(--fw-bold);color:var(--clr-accent)}
-
     /* Review sub-criteria inline */
-
     .review-item__criteria{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-bottom:var(--sp-2)}
-
     .review-item__criterion{display:inline-flex;align-items:center;gap:var(--sp-1);font-size:var(--fs-xs);color:var(--clr-dim)}
-
     .review-item__criterion .stars-precise svg{width:12px;height:12px}
-
     @media(max-width:768px){
-
         .review-form-row{grid-template-columns:1fr}
-
         .review-criteria-grid{grid-template-columns:1fr 1fr}
-
     }
-
     </style>
 
     <script>
