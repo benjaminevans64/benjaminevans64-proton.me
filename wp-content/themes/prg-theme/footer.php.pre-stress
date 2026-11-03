@@ -1,0 +1,21 @@
+</main>
+<footer class="ftr"><div class="wrap">
+<div class="ftr__grid">
+<div>
+<a href="<?php echo esc_url(home_url('/')); ?>" class="hdr__brand">
+<span class="hdr__star"><?php echo prg_icon('star'); ?></span>
+<?php bloginfo('name'); ?>
+</a>
+<p class="ftr__desc"><?php bloginfo('description'); ?></p>
+</div>
+<div><h4 class="ftr__heading">Ratings</h4><ul class="ftr__links"><li><a href="<?php echo esc_url(home_url('/how-ratings-work/')); ?>">How Ratings Work</a></li><li><a href="<?php echo esc_url(home_url('/our-top-site-picks/')); ?>">Our Top Site Picks</a></li><li><a href="<?php echo esc_url(home_url('/beginner-guide/')); ?>">Beginner Guide</a></li><li><a href="<?php echo esc_url(home_url('/red-flags-to-avoid/')); ?>">Red Flags to Avoid</a></li></ul></div>
+<div><h4 class="ftr__heading">Resources</h4><ul class="ftr__links"><li><a href="<?php echo esc_url(home_url('/blog/')); ?>">Blog</a></li><li><a href="<?php echo esc_url(home_url('/faq/')); ?>">FAQ</a></li><li><a href="<?php echo esc_url(home_url('/about/')); ?>">About</a></li></ul></div>
+<div><h4 class="ftr__heading">Legal</h4><ul class="ftr__links"><?php $legal_links = array( 'privacy-policy' => 'Privacy Policy', 'cookie-policy' => 'Cookie Policy', 'terms' => 'Terms', 'disclaimer' => 'Disclaimer' ); foreach ( $legal_links as $legal_slug => $legal_label ) { $legal_page = get_page_by_path( $legal_slug ); if ( $legal_page && 'publish' === $legal_page->post_status ) { printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/' . $legal_slug . '/' ) ), esc_html( $legal_label ) ); } } ?></ul></div>
+</div>
+<div class="ftr__bottom">
+<span>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All rights reserved.</span>
+<span>Independent &mdash; zero sponsorship.</span>
+</div>
+</div></footer>
+<?php wp_footer(); ?>
+</body></html>
