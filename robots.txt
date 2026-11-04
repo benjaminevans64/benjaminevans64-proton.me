@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-json/
-Disallow: /xmlrpc.php
-Disallow: /go/
-
-Sitemap: https://psychic-ratings-guide.net/sitemap.xml
