@@ -1,0 +1,151 @@
+/* ── Catalog Toolbar (sort/filter, client-side) ─────────────────── */
+/*
+ * PORTABILITY NOTE (this file is byte-identical on every site that ships
+ * the catalog toolbar, and gets concatenated onto each theme's own
+ * catalog.css during the self-bootstrap rollout — see catalog-filter.js).
+ * Themes across the network use different CSS custom-property NAMES for
+ * the same visual roles (bpr-theme: --clr-surface/--clr-text/--clr-gold;
+ * tpap-theme: --c-surface/--c-text/--c-accent, with a --clr-* alias layer;
+ * prg-theme: native --clr-* but different names again, e.g. --clr-muted/
+ * --clr-dim instead of --clr-text-muted/--clr-text-dim; pro-theme: an
+ * entirely different --color-*, --font-*, --t-* scheme, light-mode by
+ * default). Instead of referencing any theme's tokens directly, every rule
+ * below reads only from this component's OWN "--cf-*" custom properties,
+ * declared once here as chained var() fallbacks: try the bpr-style name,
+ * then the tpap-style name, then the prg-style name, then a pro-theme-ish
+ * analog, and finally a hardcoded dark-theme literal so the toolbar still
+ * renders correctly even on a theme with none of the above tokens.
+ *
+ * Declared on both root selectors the component owns (.catalog-toolbar and
+ * .cf-pagination) because the JS-driven pagination mount is a sibling of
+ * the toolbar, not a descendant, and this file must never assume any
+ * shared ancestor markup beyond that.
+ *
+ * Nothing here uses a bare element selector, a CSS reset, or @import —
+ * every rule is namespaced under a class this component owns, since this
+ * stylesheet gets appended onto an existing theme's catalog.css untouched.
+ */
+.catalog-toolbar,
+.cf-pagination {
+    --cf-bg:            var(--clr-bg, var(--c-bg, var(--color-surface-dark, #09090B)));
+    --cf-surface:       var(--clr-surface, var(--c-surface, var(--color-surface-dark, #18181B)));
+    --cf-surface-hover: var(--clr-surface-hover, var(--c-surface-hover, #27272A));
+    --cf-border:        var(--clr-border, var(--c-border, var(--color-border-strong, #2E2E33)));
+    --cf-border-active: var(--clr-border-active, var(--c-border-dark, var(--clr-border-strong, var(--color-border-strong, #52525B))));
+    --cf-gold:          var(--clr-gold, var(--c-accent, var(--color-accent-warm, #FBBF24)));
+    --cf-text:          var(--clr-text, var(--c-text, var(--color-text-invert, #E4E4E7)));
+    --cf-text-dim:      var(--clr-text-dim, var(--clr-dim, var(--c-text-dim, var(--color-text-light, #71717A))));
+    --cf-text-muted:    var(--clr-text-muted, var(--clr-muted, var(--c-text-light, var(--color-text-mid, #A1A1AA))));
+    --cf-green:         var(--clr-green, var(--c-green, var(--color-accent, #22C55E)));
+    --cf-green-bg:      var(--clr-green-bg, rgba(34,197,94,0.1));
+    --cf-warn:          var(--clr-tier-poor, var(--clr-warn, var(--clr-red, var(--c-red, var(--color-accent-warm, #F97316)))));
+
+    --cf-ff-body: var(--ff-body, var(--font-body, 'DM Sans', system-ui, sans-serif));
+    --cf-fs-xs:   var(--fs-xs, 0.6875rem);
+    --cf-fs-sm:   var(--fs-sm, var(--fs-small, 0.8125rem));
+    --cf-fw-medium:   var(--fw-medium, 500);
+    --cf-fw-semibold: var(--fw-semibold, 600);
+    --cf-fw-bold:     var(--fw-bold, 700);
+
+    --cf-sp-1: var(--sp-1, 4px);
+    --cf-sp-2: var(--sp-2, 8px);
+    --cf-sp-3: var(--sp-3, 12px);
+    --cf-sp-4: var(--sp-4, 16px);
+    --cf-sp-6: var(--sp-6, 24px);
+
+    --cf-r-sm:   var(--r-sm, 4px);
+    --cf-r-md:   var(--r-md, 8px);
+    --cf-r-lg:   var(--r-lg, 12px);
+    --cf-r-full: var(--r-full, var(--r-pill, 9999px));
+
+    --cf-dur:  var(--dur, var(--t-fast, 200ms));
+    --cf-ease: var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.catalog-toolbar{margin-bottom:var(--cf-sp-6);background:var(--cf-surface);border:1px solid var(--cf-border);border-radius:var(--cf-r-lg);padding:var(--cf-sp-4)}
+
+.catalog-toolbar__bar{display:flex;align-items:center;gap:var(--cf-sp-3);flex-wrap:wrap}
+
+.catalog-toolbar__search{flex:1 1 220px;min-width:0;padding:10px var(--cf-sp-3);background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-md);color:var(--cf-text);font-family:var(--cf-ff-body);font-size:var(--cf-fs-sm)}
+.catalog-toolbar__search:focus{outline:none;border-color:var(--cf-gold)}
+
+.catalog-toolbar__sort{padding:10px var(--cf-sp-3);background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-md);color:var(--cf-text);font-family:var(--cf-ff-body);font-size:var(--cf-fs-sm);cursor:pointer}
+
+.catalog-toolbar__toggle{display:none;align-items:center;gap:var(--cf-sp-2);padding:10px var(--cf-sp-4);background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-md);color:var(--cf-text);font-size:var(--cf-fs-sm);font-weight:var(--cf-fw-medium);cursor:pointer}
+.catalog-toolbar__toggle svg{width:16px;height:16px;color:var(--cf-gold)}
+
+.catalog-toolbar__panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--cf-sp-4);margin-top:var(--cf-sp-4);padding-top:var(--cf-sp-4);border-top:1px solid var(--cf-border)}
+
+.catalog-toolbar__group{display:flex;flex-direction:column;gap:var(--cf-sp-2);min-width:0}
+.catalog-toolbar__label{font-size:var(--cf-fs-xs);font-weight:var(--cf-fw-semibold);text-transform:uppercase;letter-spacing:0.06em;color:var(--cf-text-dim)}
+
+.catalog-toolbar__type-filter{width:100%;box-sizing:border-box;padding:6px 8px;margin-bottom:2px;background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-sm);color:var(--cf-text);font-family:var(--cf-ff-body);font-size:var(--cf-fs-xs)}
+.catalog-toolbar__type-filter:focus{outline:none;border-color:var(--cf-gold)}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:var(--cf-sp-1)}
+.filter-chip{padding:5px 12px;font-size:var(--cf-fs-xs);font-weight:var(--cf-fw-medium);color:var(--cf-text-muted);background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-full);cursor:pointer;transition:all var(--cf-dur) var(--cf-ease)}
+.filter-chip:hover{border-color:var(--cf-border-active);color:var(--cf-text)}
+.filter-chip--active{background:rgba(251,191,36,0.12);border-color:var(--cf-gold);color:var(--cf-gold);font-weight:var(--cf-fw-semibold)}
+
+/* Fix 3: a chip annotated with a zero count for the current scope (e.g.
+   "Online Now" on a term with no online advisors, or a price band with no
+   matches) is disabled rather than left clickable-but-pointless. */
+.filter-chip:disabled,
+.filter-chip--unavailable{opacity:0.35;cursor:not-allowed;pointer-events:none}
+.filter-chip:disabled:hover{border-color:var(--cf-border);color:var(--cf-text-muted)}
+
+.catalog-toolbar__price-inputs{display:flex;align-items:center;gap:var(--cf-sp-2)}
+.catalog-toolbar__price-inputs input{width:100%;min-width:0;padding:6px 8px;background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-sm);color:var(--cf-text);font-size:var(--cf-fs-xs)}
+.catalog-toolbar__price-sep{color:var(--cf-text-dim);font-size:var(--cf-fs-xs)}
+
+.catalog-toolbar__group input[type="number"]{padding:8px 10px;background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-sm);color:var(--cf-text);font-size:var(--cf-fs-sm)}
+
+.catalog-toolbar__multiselect{padding:var(--cf-sp-1);background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-sm);color:var(--cf-text);font-size:var(--cf-fs-xs)}
+.catalog-toolbar__multiselect option{padding:3px 6px}
+.catalog-toolbar__multiselect option.cf-option--hidden{display:none}
+
+.catalog-toolbar__group select{padding:8px 10px;background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-sm);color:var(--cf-text);font-size:var(--cf-fs-sm);cursor:pointer}
+
+.filter-toggle{display:inline-flex;align-items:center;gap:var(--cf-sp-2);padding:8px 14px;background:var(--cf-bg);border:1px solid var(--cf-border);border-radius:var(--cf-r-md);color:var(--cf-text-muted);font-size:var(--cf-fs-sm);cursor:pointer;transition:all var(--cf-dur) var(--cf-ease);align-self:flex-start}
+.filter-toggle__dot{width:8px;height:8px;border-radius:50%;background:var(--cf-text-dim);transition:background var(--cf-dur)}
+.filter-toggle[aria-pressed="true"]{border-color:var(--cf-green);color:var(--cf-green);background:var(--cf-green-bg)}
+.filter-toggle[aria-pressed="true"] .filter-toggle__dot{background:var(--cf-green)}
+.filter-toggle:disabled{opacity:0.35;cursor:not-allowed}
+
+.catalog-toolbar__reset{align-self:flex-end;justify-self:start}
+
+.catalog-toolbar__active{display:flex;flex-wrap:wrap;gap:var(--cf-sp-2);margin-top:var(--cf-sp-4)}
+.catalog-toolbar__active:empty{margin-top:0}
+.active-filters__chip{display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;font-size:var(--cf-fs-xs);color:var(--cf-text);background:var(--cf-surface-hover);border:1px solid var(--cf-border);border-radius:var(--cf-r-full)}
+.active-filters__remove{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;padding:0;background:none;border:none;color:var(--cf-text-dim);font-size:14px;line-height:1;cursor:pointer;border-radius:50%}
+.active-filters__remove:hover{color:var(--cf-text);background:var(--cf-border)}
+
+.catalog-toolbar__status{display:flex;align-items:center;justify-content:space-between;gap:var(--cf-sp-3);margin-top:var(--cf-sp-3);font-size:var(--cf-fs-xs);color:var(--cf-text-dim)}
+.catalog-toolbar__msg{color:var(--cf-warn)}
+
+.catalog-toolbar--disabled{opacity:0.6}
+.catalog-toolbar--disabled .catalog-toolbar__panel{pointer-events:none}
+
+/* Fix 3: a whole toolbar group (Availability toggle, or a picker with
+   zero real options in the current scope -- e.g. Skills on a specialty
+   term where no advisor carries any skill term) is removed entirely
+   rather than shown empty/dead. */
+.cf-facet-hidden{display:none}
+
+/* JS-owned pagination — same visual language as the server-rendered
+   .catalog-pagination, but the buttons carry their own class since the
+   base rule only targets <a>/<span>. */
+.cf-pagination .cf-page-btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;height:40px;padding:0 var(--cf-sp-3);border:1px solid var(--cf-border);border-radius:var(--cf-r-md);background:transparent;font-size:var(--cf-fs-sm);font-family:var(--cf-ff-body);color:var(--cf-text-muted);cursor:pointer;transition:all var(--cf-dur)}
+.cf-pagination .cf-page-btn:hover:not(:disabled){border-color:var(--cf-gold);color:var(--cf-gold)}
+.cf-pagination .cf-page-btn:disabled{opacity:0.4;cursor:not-allowed}
+.cf-pagination .cf-page-btn.current{background:var(--cf-gold);border-color:var(--cf-gold);color:var(--cf-bg);font-weight:var(--cf-fw-bold)}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media(max-width:768px){
+    .catalog-toolbar__toggle{display:inline-flex}
+    .catalog-toolbar__panel{display:none;grid-template-columns:1fr 1fr}
+    .catalog-toolbar__panel--open{display:grid}
+}
+@media(max-width:480px){
+    .catalog-toolbar__panel{grid-template-columns:1fr}
+}

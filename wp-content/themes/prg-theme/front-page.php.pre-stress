@@ -1,0 +1,112 @@
+<?php get_header(); ?>
+
+<section class="hero">
+<div class="wrap"><div class="hero__inner">
+<div class="hero__eyebrow"><?php echo prg_icon('star'); ?> <span>Updated 2026</span></div>
+<h1 class="hero__title"><em>Psychic Ratings Guide</em></h1>
+<p class="hero__sub">Your complete guide to psychic ratings — how to spot a great reader.</p>
+<div class="hero__actions">
+<a href="#ratings" class="btn btn--gold btn--lg">Learn How to Find a Great Psychic →</a>
+<a href="<?php echo esc_url(home_url('/faq/')); ?>" class="btn btn--ghost btn--lg">Learn More</a>
+</div>
+</div></div>
+</section>
+
+<section class="sec sec--bordered" id="ratings">
+<div class="wrap">
+<div class="sec__header">
+<span class="sec__eyebrow"><?php echo prg_icon('star'); ?> Top Picks</span>
+<h2 class="sec__title">Featured Resource and Highest-Rated Picks</h2>
+<p class="sec__sub">Our network resource appears first. Scores below apply only to the rated platforms.</p>
+</div>
+<div class="card-grid">
+<div class="review-card review-card--network-featured">
+<div style="display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-3)">
+<span style="background:var(--clr-gold);color:var(--clr-bg);font-weight:var(--fw-bold);font-size:var(--fs-xs);padding:2px 10px;border-radius:var(--r-full)">Featured network resource</span>
+</div>
+<h3 class="review-card__name">Ask a Free Psychic Question</h3>
+<p class="review-card__desc">Explore psychic guidance and a partner introductory offer. Paid rates may apply if you continue.</p>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)">
+<span style="font-size:var(--fs-xs)">Network site · no editorial score</span>
+<a href="https://askafreepsychicquestion.com/?utm_source=psychic-ratings-guide.net&amp;utm_medium=referral&amp;utm_campaign=network-priority" class="btn btn--ghost" style="font-size:var(--fs-xs)">Explore site &rarr;</a>
+</div>
+</div>
+<?php
+$items = [
+['name'=>'Kasamba','slug'=>'kasamba-review','score'=>4.8,'desc'=>'Leading psychic platform with 20+ years of experience. Chat, phone and email readings available.'],
+['name'=>'Keen','slug'=>'keen-review','score'=>4.7,'desc'=>'Huge network of vetted readers with excellent filtering and competitive per-minute rates.'],
+['name'=>'Purple Garden','slug'=>'purple-garden-review','score'=>4.6,'desc'=>'Modern app-first platform with video readings, transparent pricing and intuitive interface.'],
+['name'=>'California Psychics','slug'=>'california-psychics-review','score'=>4.5,'desc'=>'Premium phone service with rigorous reader screening and consistently accurate readings.'],
+['name'=>'Psychic Source','slug'=>'psychic-source-review','score'=>4.4,'desc'=>'Established service with satisfaction guarantee and strong love reading specialists.'],
+['name'=>'Oranum','slug'=>'oranum-review','score'=>4.3,'desc'=>'Free live video streaming platform where you can preview readers before booking a private session.'],
+];
+foreach ( $items as $i => $item ) : ?>
+<div class="review-card">
+<div style="display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-3)">
+<span style="background:var(--clr-gold);color:var(--clr-bg);font-weight:var(--fw-bold);font-size:var(--fs-xs);padding:2px 10px;border-radius:var(--r-full)">#<?php echo $i+1; ?></span>
+<h3 class="review-card__name" style="margin:0"><?php echo esc_html($item['name']); ?></h3>
+</div>
+<p class="review-card__desc"><?php echo esc_html($item['desc']); ?></p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;align-items:center;gap:var(--sp-2)">
+<?php echo prg_stars(round($item['score'])); ?>
+<span style="font-weight:var(--fw-bold);color:var(--clr-gold)"><?php echo number_format($item['score'],1); ?></span>
+</div>
+<a href="<?php echo esc_url(home_url('/review/' . $item['slug'] . '/')); ?>" class="btn btn--ghost" style="font-size:var(--fs-xs)">Full Review &rarr;</a>
+</div>
+</div>
+<?php endforeach; ?>
+</div>
+</div>
+</section>
+
+<section class="sec sec--surface">
+<div class="wrap">
+<div class="sec__header">
+<span class="sec__eyebrow"><?php echo prg_icon('shield'); ?> Why Trust Us</span>
+<h2 class="sec__title">Our Commitment</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--sp-5);text-align:center">
+<?php
+$usps = explode(' | ', 'Methodology fully explained | Beginner-friendly language | Updated quarterly | Independent and transparent | Red flag warnings included');
+$icons = ['check','shield','star','users','arrow'];
+foreach ( $usps as $i => $usp ) : ?>
+<div style="padding:var(--sp-6) var(--sp-4)">
+<div style="width:40px;height:40px;margin:0 auto var(--sp-3);color:var(--clr-gold)"><?php echo prg_icon($icons[$i % count($icons)]); ?></div>
+<h4 style="font-size:var(--fs-base);margin-bottom:var(--sp-2)"><?php echo esc_html(trim($usp)); ?></h4>
+</div>
+<?php endforeach; ?>
+</div>
+</div>
+</section>
+
+<section class="sec sec--bordered">
+<div class="wrap wrap--narrow">
+<div class="sec__header">
+<span class="sec__eyebrow"><?php echo prg_icon('plus'); ?> FAQ</span>
+<h2 class="sec__title">Frequently Asked Questions</h2>
+</div>
+<?php
+$faqs = ["How are psychic ratings actually calculated?", "What makes a high rating trustworthy or meaningful?", "Can psychic ratings be faked or manipulated?", "Which sites currently have the best overall ratings?", "How should a beginner read and interpret reviews?"];
+foreach ( $faqs as $i => $q ) : ?>
+<div class="faq-row<?php echo $i===0?' open':''; ?>">
+<button class="faq-row__q" type="button" aria-expanded="<?php echo $i===0?'true':'false'; ?>">
+<span><?php echo esc_html($q); ?></span>
+<span class="faq-row__icon"><?php echo prg_icon('plus'); ?></span>
+</button>
+<div class="faq-row__a"><p>Our experts provide detailed answers based on independent research and hands-on testing. Visit our blog for in-depth coverage of this topic.</p></div>
+</div>
+<?php endforeach; ?>
+</div>
+</section>
+
+<section class="cta-banner">
+<div class="wrap">
+<h2 class="cta-banner__title">Your complete guide to psychic ratings — how to spot a great reader.</h2>
+<p class="cta-banner__sub">Start exploring our independent ratings today.</p>
+<a href="#ratings" class="btn btn--gold btn--lg">Learn How to Find a Great Psychic →</a>
+</div>
+</section>
+
+<?php /* homeblocks-slot */ if ( function_exists( 'hb_render_home_blocks' ) ) { hb_render_home_blocks(); } ?>
+<?php get_footer(); ?>

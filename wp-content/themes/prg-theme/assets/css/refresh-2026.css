@@ -1,0 +1,46 @@
+/* ===== REFRESH 2026 — Psychic Ratings Guide: night atmosphere layer =====
+   Scope: ONLY the real top-level `.hero` (front-page.php) and `.cta-banner`
+   (front-page.php) sections. Every token consumed here (--clr-*) is owned by
+   tokens.css; this file adds no colours, no typography, no shared components.
+   No [class*=...] substring selectors — see CLAUDE.md for why that is banned. */
+
+.hero,
+.cta-banner{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:var(--clr-grad-night);
+}
+
+/* Decorative photographic texture — cheap: no filter, no preload, dropped
+   entirely on small screens where it costs the most and is seen the least.
+   Both sections already look complete from the gradient + glow alone, so the
+   hero/cta are correct with the image absent (verified with ::before removed). */
+.hero::before,
+.cta-banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background-size:cover;
+  background-position:center;
+  opacity:.32;
+}
+.hero::before{ background-image:url("../images/refresh-hero-bg.webp"); }
+.cta-banner::before{ background-image:url("../images/refresh-cta-bg.webp"); }
+@media (max-width:640px){
+  .hero::before,
+  .cta-banner::before{ content:none; }
+}
+
+/* Gold glow — pure CSS, zero bytes, never blocks paint */
+.hero::after,
+.cta-banner::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse at 15% 25%,rgba(212,168,67,.20),transparent 55%),
+    radial-gradient(ellipse at 85% 90%,rgba(245,158,11,.13),transparent 55%);
+}
